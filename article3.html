@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>크리스마스 솔로 탈출 ?!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .container {
+      width: 80%;
+      margin: 20px auto;
+    }
+    .article {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .average-rating {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .rating {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 24px;
+      user-select: none;
+    }
+    .rating span {
+      cursor: pointer;
+      color: #FFD700;
+    }
+    .rating span:hover,
+    .rating span:hover ~ span {
+      color: #FFD700;
+    }
+    .confirm-button {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .confirm-button button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #FFD700;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+    }
+    .reset-button {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .reset-button button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-color : black;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>크리스마스 솔로 탈출 ?!</h1>
+  </header>
+  
+  
+  <img src="chirstmas.jpg" alt="크리스마스" style="display: block; margin: 20px auto; max-width: 80%;">
+
+  <div class="container">
+    <article class="article">
+      <p>지난 11월 25일, 크리스마스가 한달 남은 시점에서 한국외국어대학교 연애학과 이희서 교수가 크리스마스를 솔로로 보내지 않을 수 있는 방법을 공개했다.
+        이희서 교수에 따르면 크리스마스를 솔로로 보내지 않을 수 있는 방법은 애인을 사귀는 것이다. 
+      </p>
+    </article>
+
+     
+    <div class="average-rating">
+        <p>얼마나 도움이 되었나요?</p>
+      <p>평균 별점: <span id="average">-</span></p>
+    </div>
+
+    
+    <div class="rating" onmousemove="hoverRating(event)" onclick="clickRating(event)">
+      <span data-value="1">☆</span>
+      <span data-value="2">☆</span>
+      <span data-value="3">☆</span>
+      <span data-value="4">☆</span>
+      <span data-value="5">☆</span>
+    </div>
+
+     
+    <div class="confirm-button">
+      <button onclick="confirmRating()">확인</button>
+    </div>
+
+     
+    <div class="reset-button">
+      <button onclick="resetRatings()">별점 초기화</button>
+    </div>
+  </div>
+  
+   
+  <button style="position: fixed; top: 20px; left: 20px;"><a href=web.html>HOME</a></button>
+
+  <script>
+    let selectedRating = 0;
+    let ratings = JSON.parse(localStorage.getItem('ratings')) || [];
+
+    function hoverRating(event) {
+      const stars = document.querySelectorAll('.rating span');
+      const hoverValue = parseInt(event.target.getAttribute('data-value'));
+
+      stars.forEach((star, index) => {
+        if (index < hoverValue) {
+          star.textContent = '★';
+        } else {
+          star.textContent = '☆';
+        }
+      });
+    }
+
+    function clickRating(event) {
+      selectedRating = parseInt(event.target.getAttribute('data-value'));
+      displayRating();
+    }
+
+    function displayRating() {
+      const stars = document.querySelectorAll('.rating span');
+
+      stars.forEach((star, index) => {
+        if (index < selectedRating) {
+          star.textContent = '★';
+        } else {
+          star.textContent = '☆';
+        }
+      });
+    }
+
+    function confirmRating() {
+      if (selectedRating !== 0) {
+        ratings.push(selectedRating);
+        localStorage.setItem('ratings', JSON.stringify(ratings));
+        displayAverageRating();
+      }
+    }
+
+    function resetRatings() {
+      ratings = [];
+      localStorage.setItem('ratings', JSON.stringify(ratings));
+      displayAverageRating();
+      displayRating();
+    }
+
+    function getAverageRating() {
+      let sum = 0;
+
+      for (let i = 0; i < ratings.length; i++) {
+        sum += ratings[i];
+      }
+
+      return sum / ratings.length || 0;
+    }
+
+    function displayAverageRating() {
+      const averageRating = document.getElementById('average');
+      averageRating.textContent = getAverageRating().toFixed(1);
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+
+    window.onload = function() {
+      displayRating();
+      displayAverageRating();
+    };
+  </script>
+</body>
+</html>

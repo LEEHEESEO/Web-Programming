@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>시부야 참변</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .container {
+      width: 80%;
+      margin: 20px auto;
+    }
+    .article {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .poll {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .poll button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #chartContainer {
+      height: 300px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>시부야 참변</h1>
+  </header>
+  
+  
+  <img src="skuna.PNG" alt="스쿠나" style="display: block; margin: 20px auto; max-width: 80%;">
+
+  <div class="container">
+    <article class="article">
+      <p>지난 2일, 시부야에서 참변이 일어났다. 주술고전의 주술사들과 주령들의 전투 중, 이타도리 유지의 몸을 차지한 료멘 스쿠나에 의해 시부야에 있던 3만명의 무고한 시민들이 학살된 것이다. 
+        참변 당시 이타도리 유지에겐 의식이 없었으며, 스쿠나에 의해 육체를 강탈 당했다고 알려졌다. 일부 시민들은 그럼에도 참변에 이타도리의 책임이 없다고 주장하고 있다.
+        한편 스쿠나의 손가락을 먹은 이타도리의 사형을 지연시킨 것이 고죠가의 당주 고죠 사토루라는 것이 밝혀지며 갑론을박은 더욱 달궈지고 있다.</p>
+    </article>
+
+     
+    <div class="poll">
+      <h2>"잘못은 누구에게 있는가?"</h2>
+      <button onclick="vote('oppose')">이타도리</button>
+      <button onclick="vote('support')">스쿠나</button>
+      <canvas id="chartContainer"></canvas>
+      <button onclick="resetVotes()">그래프 초기화</button>
+    </div>
+  </div>
+  
+  <button style="position: fixed; top: 20px; left: 20px;"><a href=web.html>HOME</a></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    let oppositionVotes = parseInt(localStorage.getItem('oppositionVotes')) || 0;
+    let supportVotes = parseInt(localStorage.getItem('supportVotes')) || 0;
+
+    function vote(voteType) {
+      if (voteType === 'oppose') {
+        oppositionVotes++;
+      } else if (voteType === 'support') {
+        supportVotes++;
+      }
+
+      localStorage.setItem('oppositionVotes', oppositionVotes);
+      localStorage.setItem('supportVotes', supportVotes);
+
+      renderChart();  
+    }
+
+    function renderChart() {
+      const chartContainer = document.getElementById('chartContainer');
+
+      if (window.myChart) {
+        window.myChart.destroy();  
+      }
+
+      window.myChart = new Chart(chartContainer, {
+        type: 'bar',
+        data: {
+          labels: ['이타도리', '스쿠나'],
+          datasets: [{
+            label: 'result',
+            data: [oppositionVotes, supportVotes],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(54, 162, 235, 0.5)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 0.5
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    function resetVotes() {
+      localStorage.removeItem('oppositionVotes');
+      localStorage.removeItem('supportVotes');
+      oppositionVotes = 0;
+      supportVotes = 0;
+      renderChart();  
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+
+    window.onload = function() {
+      renderChart();
+    };
+  </script>
+</body>
+</html>

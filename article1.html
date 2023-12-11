@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>루피 사황되다</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .container {
+      width: 80%;
+      margin: 20px auto;
+    }
+    .article {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .comments {
+      margin-top: 20px;
+    }
+    .comments h2 {
+      margin-bottom: 10px;
+    }
+    #commentInput {
+      width: 70%;
+      padding: 8px;
+      margin-right: 10px;
+    }
+    #commentList {
+      list-style: none;
+      padding: 0;
+    }
+    #commentList li {
+      background-color: #f9f9f9;
+      padding: 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>루피 사황되다</h1>
+  </header>
+  
+   
+  <img src="LUFFY.webp" alt="루피" style="display: block; margin: 20px auto; max-width: 80%;">
+
+  <div class="container">
+    <article class="article">
+      <p>지난 8일, 몽키 D 루피 일명 밀짚모자 루피가 사황의 자리에 올랐다. 밀짚모자 루피는 같은 최악의 세대라 볼리는 트라팔가 로, 유스타스 키드와 함께 와노쿠니를 습격했다. 이들은 20년 전 와노쿠니에서 추방당한 사무라이와 함께 습격을 강행하였다. 이들 일당은 와노쿠니에 상주 중이던 두 사황 빅맘과 카이도우를 쓰러뜨렸다. 밀짚모자의 현상금은 15억 베리로 올랐다.</p>
+    </article>
+    <div class="comments">
+      <h2>댓글</h2>
+      <input type="text" id="commentInput" placeholder="댓글을 입력하세요">
+      <button onclick="addComment()">댓글 추가</button>
+      <ul id="commentList"></ul>
+      <button onclick="resetComments()">댓글 초기화</button>  
+    </div>
+  </div>
+  
+  <button style="position: fixed; top: 20px; left: 20px;"><a href=web.html>HOME</a></button>
+
+  <script>
+    window.onload = function() {
+      const comments = localStorage.getItem('comments');
+      if (comments) {
+        document.getElementById('commentList').innerHTML = comments;
+      }
+    };
+
+    function addComment() {
+      const commentInput = document.getElementById('commentInput');
+      const commentList = document.getElementById('commentList');
+      const newComment = commentInput.value;
+      const listItem = document.createElement('li');
+      listItem.textContent = newComment;
+      const firstComment = commentList.firstChild;
+      commentList.insertBefore(listItem, firstComment);
+      localStorage.setItem('comments', commentList.innerHTML);
+      commentInput.value = '';
+    }
+
+    function resetComments() {
+      localStorage.removeItem('comments');
+      document.getElementById('commentList').innerHTML = '';
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

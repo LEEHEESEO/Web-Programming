@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      text-align: center;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    button {
+      margin: 10px;
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="아이디">
+      <input type="password" id="password" placeholder="비밀번호">
+      <button type="button" onclick="login()">확인</button>
+    </form>
+    <p id="welcomeMessage" style="display: none;"></p>
+  </div>
+
+  <script>
+    function login() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      var welcomeMessage = document.getElementById("welcomeMessage");
+
+      
+      if (username && password) {
+        welcomeMessage.innerText = "'" + username + "' 님 환영합니다!";
+        welcomeMessage.style.display = "block";
+        setTimeout(function() {
+          welcomeMessage.style.display = "none";
+           
+          setTimeout(function() {
+            window.history.back();
+          }, 1000);
+        }, 3000); 
+      } else {
+        alert("아이디와 비밀번호를 모두 입력해주세요.");
+      }
+    }
+  </script>
+</body>
+</html>

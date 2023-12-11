@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>웹 프로그래밍 과제</title>
+  <style>
+
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #ccc;
+      }
+
+    
+    .header {
+      background-color: black;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      height: 100px;  
+    }
+
+    
+    .articles {
+      display: flex;
+      flex-direction: column;  
+      align-items: center;  
+      padding: 20px 0;  
+    }
+
+    .article {
+      width: 90%;
+      margin: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;  
+      border: 1px solid black;
+      text-shadow : 3px 3px darkgray
+    }
+    
+    .article a{
+      color : black
+    }
+    .article a:hover{
+      color : blue
+    }
+    
+    
+    .article img {
+      max-width: 100px;  
+      height: 100px;  
+      display: block;  
+      margin-right: 10px;  
+    }
+
+    /* 메뉴 스타일 */
+    .menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: darkgrey;
+      padding: 10px;
+      height: 40px;
+    }
+
+    .menu ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center; 
+      justify-content: flex-end;
+    }
+
+    .menu ul li {
+      margin-bottom: 10px;
+    }
+
+    .menu ul li a {
+      text-decoration: none;
+      color: black;
+    }
+
+
+    
+   
+
+    
+    .menu ul li a:hover {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>LEE NEWS</h1>
+  </div>
+  
+  <div class="articles">
+    <div class="article">
+        <h2><a href = "article1.html">루피, 사황 되다</a></h2>
+    </div>
+    <div class="article">
+      <h2><a href = "article2.html">시부야 참변</a></h2>
+    </div>
+	<div class="article">
+    <h2><a href = "article3.html">크리스마스 솔로 탈출 ?!</a></h2>
+    </div>
+  </div>
+
+  <div class="menu">
+    <ul>
+      <li><a href="Login.html">Login</a></li>
+    </ul>
+  </div>
+</body>
+</html>
